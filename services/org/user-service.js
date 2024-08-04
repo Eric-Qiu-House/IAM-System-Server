@@ -1,4 +1,5 @@
 const { userMod } = require('../../models/org');
+const { Op } = require('sequelize'); // 确保导入了 Op
 
 // 查找全部
 async function findList() {
@@ -56,8 +57,38 @@ async function whereUser(i) {
   }
 }
 
+// [id...] 
+async function fetchUsersByUserIds(userIds) {
+  console.log(userIds, 'userids');
+
+  // 确保 userIds 是一个数组且不为空
+  if (!Array.isArray(userIds) || userIds.length === 0) {
+    throw new Error('Invalid user IDs');
+  }
+
+  try {
+    // 查询数据库中的数据
+    const lists = await userMod.findAll({
+      where: {
+        id_: {
+          [Op.in]: userIds
+        }
+      }
+    });
+    console.log(lists, 'listslistslists');
+
+    // 提取纯数据
+    return lists.map(record => record.get({ plain: true }));
+  } catch (error) {
+    // 捕获并处理错误
+    console.error('Error fetching users:', error);
+    throw new Error('查询出错');
+  }
+}
+
 module.exports = {
   findList,
   whereUserId,
-  whereUser
+  whereUser,
+  fetchUsersByUserIds
 }

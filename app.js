@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
 
 // 配置服务端口监听
 app.listen(3002, function () {
-  console.log("服务启动,端口号3000");
+  console.log("服务启动,端口号3002");
 })
 
 // 生产环境启动
