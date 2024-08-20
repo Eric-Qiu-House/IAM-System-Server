@@ -1,13 +1,14 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../config/database'); // 引入 Sequelize 实例
+const { v4: uuidv4 } = require('uuid'); // 引入 uuid 库
 
 class Role extends Model { }
 
 Role.init({ //用于初始化模型的属性和选项。
     id_: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        autoIncrement: true
     },
     name_: {
         type: DataTypes.STRING,
@@ -48,6 +49,10 @@ Role.init({ //用于初始化模型的属性和选项。
     update_by_: {
         type: DataTypes.STRING,
     },
+    delete_time_: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    }
 }, {
     sequelize,  //指定连接的数据库实例
     modelName: 'Role',  //模型的名称

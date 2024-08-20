@@ -1,7 +1,7 @@
 const express = require('express');
 // const deptRoute = require('./dept.route.js');
 // const roleRoute = require('./role.route.js');
-// const systemRoute = require('./system.route.js');
+const systemRoute = require('./system.route.js');
 const userRoute = require('./user.route.js');
 
 const router = express.Router();
@@ -15,10 +15,10 @@ const defaultRoutes = [
   //   path: '/roles',
   //   route: roleRoute,
   // },
-  // {
-  //   path: '/systems',
-  //   route: systemRoute,
-  // },
+  {
+    path: '/router',
+    route: systemRoute,
+  },
   {
     path: '/users',
     route: userRoute,

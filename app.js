@@ -6,7 +6,7 @@ const logger = require('morgan');
 const uuidUtils = require('./utils/uuid');
 
 // 路由模块
-const settingRouter = require('./routes/setting/index');
+const systemRouter = require('./routes/system/index');
 const loginRouter = require('./routes/login/login');
 const orgRouter = require('./routes/org');
 
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/org',orgRouter);
 app.use('/login',loginRouter);
-app.use('/setting', settingRouter);
+app.use('/system', systemRouter);
 
 // 捕获 404 错误
 app.use((req, res, next) => {
