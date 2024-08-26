@@ -11,17 +11,17 @@ async function systemRouteController(req, res) {
 
 async function updateRouteController(req, res) {
     try {
-        const data = await service.updateRoute(req.query);
+        const data = await service.updateRoute(req.body);
         res.status(201).json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
-// 插入角色
+// 插入
 const addRouterController = async (req,res) => {
     try {
-        const data = await service.addRouter(req.query);
+        const data = await service.addRouter(req.body);
         res.status(201).json(data);
     } catch (error) {  
         res.status(500).json({ error: error.message });

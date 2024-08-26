@@ -11,22 +11,18 @@ Router.init({
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   path: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   title: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   icon: {
     type: DataTypes.STRING,
   },
   type: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   parent_id: {
     type: DataTypes.INTEGER,
@@ -39,7 +35,6 @@ Router.init({
   },
   hidden: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false,
   },
   permissions: {
     type: DataTypes.STRING,

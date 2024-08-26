@@ -6,6 +6,7 @@ const controllers = require('../../controllers/system/sys-router-controllers');
 
 router.get('/systemRoutesTree',controllers.systemRouteController)
 router.post('/updetaRoute',controllers.updateRouteController)
+router.post('/addRouter',controllers.addRouterController)
 
 
 module.exports = router;

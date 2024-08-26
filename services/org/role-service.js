@@ -1,14 +1,10 @@
 const { roleMod } = require('../../models/org');
+const { Op } = require('sequelize');
 
 // 查找全部 delete_time_ 为空的记录
 async function findList() {
   try {
-    const lists = await roleMod.findAll({
-      where: {
-        delete_time_: null
-      }
-    });
-
+    const lists = await roleMod.findAll();
     if (lists.length > 0) {
       return lists;
     } else {
@@ -21,12 +17,34 @@ async function findList() {
   }
 }
 
-// 插入新角色
-async function addRole(roleInfo) {
-  console.log(roleInfo, 'roleInfo')
+// 查找通过角色id数组查询router_tree_的方法
+async function findRouterTreeByRoleIds(roleIds) {
   try {
-    const newRole = await roleMod.create(roleInfo);
-    return newRole;
+    const routerTrees = await roleMod.findAll({
+      where: {
+        id_: {
+          [Op.in]: roleIds, // 使用Op.in来匹配roleIds数组中的任何一个角色ID
+        }
+      },
+    });
+
+    if (routerTrees.length > 0) {
+      return routerTrees;
+    } else {
+      console.log('No records found for the given role IDs');
+      return [];
+    }
+  } catch (error) {
+    console.error('Error finding router trees by role IDs:', error);
+    throw error;
+  }
+}
+
+// 插入新角色
+async function addRole(info) {
+  try {
+    const data = await roleMod.create(info);
+    return data;
   } catch (error) {
     console.error('Error finding users:', error);
     throw error;
@@ -68,10 +86,10 @@ async function updateRole(info) {
       throw new Error('记录未找到');
     }
 
-    console.log('删除时间更新成功');
+    console.log('更新成功');
     return result;
   } catch (error) {
-    console.error('更新删除时间时出错:', error);
+    console.error('更新时出错:', error);
     throw error;
   }
 }
@@ -80,5 +98,6 @@ module.exports = {
   findList,
   addRole,
   updateDeleteTime,
-  updateRole
+  updateRole,
+  findRouterTreeByRoleIds
 }

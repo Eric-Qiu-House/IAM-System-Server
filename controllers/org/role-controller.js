@@ -10,7 +10,10 @@ const inquireList = async  (req,res) => {
     }
 }
 
-// 插入角色
+// 角色id查路由id
+
+
+// 插入
 const addRoleController = async (req,res) => {
     try {
         const data = await roleService.addRole(req.body);
@@ -30,7 +33,7 @@ const deleteRoleController = async (req,res) => {
     }
 }
 
-// 更新角色
+// 更新
 const updateRoleController = async (req,res) => {
     try {
         const data = await roleService.updateRole(req.body);

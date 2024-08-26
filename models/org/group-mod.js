@@ -26,10 +26,6 @@ Group.init({ //用于初始化模型的属性和选项。
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      type_: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       desc_: {
         type: DataTypes.TEXT,
         allowNull: true
@@ -41,7 +37,12 @@ Group.init({ //用于初始化模型的属性和选项。
 }, {
     sequelize,  //指定连接的数据库实例
     modelName: 'role',  //模型的名称
-    tableName: 'org_group' // 指定关联的数据库表名称
+    tableName: 'org_group', // 指定关联的数据库表名称
+    defaultScope: {
+      where: {
+        delete_time_: null // 默认查询条件: delete_time_ 为 null
+      }
+    },
 });
 
 module.exports = Group;

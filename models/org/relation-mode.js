@@ -12,36 +12,37 @@ Relation.init({ //用于初始化模型的属性和选项。
     group_id_: {
         type: DataTypes.STRING,
     },
-    user_id_: {
-        type: DataTypes.STRING,
-    },
-    is_master_: {
-        type: DataTypes.INTEGER,
-    },
     role_id_: {
         type: DataTypes.STRING,
+        set(value) {
+            // 保存到数据库时，将数组转换为 JSON 字符串
+            if (Array.isArray(value)) {
+                this.setDataValue('role_id_', JSON.stringify(value));
+            } else {
+                this.setDataValue('role_id_', value);
+            }
+        },
+        get() {
+            const rawValue = this.getDataValue('role_id_');
+            try {
+                // 从数据库读取时，将 JSON 字符串解析为数组
+                return JSON.parse(rawValue);
+            } catch (error) {
+                return rawValue;
+            }
+        }
     },
-    status_: {
-        type: DataTypes.INTEGER, 
-    },
-    type_: {
-        type: DataTypes.STRING, 
-    },
-
     create_time_: {
         type: DataTypes.DATE, // DATETIME 类型
     },
     create_by_: {
         type: DataTypes.STRING,
     },
-    create_org_id_: {
-        type: DataTypes.STRING,
-    },
     update_time_: {
         type: DataTypes.DATE, // DATETIME 类型
     },
     updater_: {
-        type: DataTypes.STRING, 
+        type: DataTypes.STRING,
     },
     update_by_: {
         type: DataTypes.STRING,

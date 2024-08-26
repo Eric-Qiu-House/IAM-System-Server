@@ -16,7 +16,6 @@ const buildTree = (list, parentId = null) => {
     });
 };
 
-
 async function findList() {
     try {
       const lists = await groupMod.findAll({
@@ -50,7 +49,6 @@ async function findList() {
   
   // 删除
   async function updateDeleteTime(info) {
-    console.log(info,'info')
     try {
       const result = await groupMod.update(
         { delete_time_: new Date() },
@@ -83,10 +81,10 @@ async function findList() {
         throw new Error('记录未找到');
       }
   
-      console.log('删除时间更新成功');
+      console.log('更新成功');
       return result;
     } catch (error) {
-      console.error('更新删除时间时出错:', error);
+      console.error('更新出错:', error);
       throw error;
     }
   }
