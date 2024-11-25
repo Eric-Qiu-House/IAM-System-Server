@@ -18,9 +18,9 @@ async function findList() {
 }
 
 // 条件查询 - 返回唯一
-async function whereUserId(i) {
+async function whereUserIda(i) {
   try {
-    const user = await userMod.findOne({ where: { account_: i } })
+    const user = await userMod.findOne({ where: { id_: i } })
     if (user) {
       console.log('Found user:', user);
       return user;
@@ -33,6 +33,41 @@ async function whereUserId(i) {
     throw error;
   }
 }
+
+// 条件查询 - 返回唯一
+async function whereUserId(i) {
+  console.log(i,'iiii')
+  try {
+    const user = await userMod.findOne({ where: { id_: i.id_ } })
+    if (user) {
+      return user;
+    } else {
+      console.log('User not found');
+      return null;
+    }
+  } catch(error) {
+    console.error('Error finding user:', error);
+    throw error;
+  }
+}
+
+// 保留：看是否影响其他业务： 2024/9/20； 
+  // 变更 account_ 变更为 id_
+// async function whereUserId(i) {
+//   try {
+//     const user = await userMod.findOne({ where: { account_: i } })
+//     if (user) {
+//       console.log('Found user:', user);
+//       return user;
+//     } else {
+//       console.log('User not found');
+//       return null;
+//     }
+//   } catch {
+//     console.error('Error finding user:', error);
+//     throw error;
+//   }
+// }
 
 // 条件查询 - 返回全部
 async function whereUser(i) {

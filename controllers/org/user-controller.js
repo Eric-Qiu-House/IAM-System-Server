@@ -11,6 +11,17 @@ const inquireList = async (req, res) => {
     }
 }
 
+// id read user
+const whereUserId = async (req, res) => {
+    try {
+        const contList = await userService.whereUserId(req.body);
+        res.status(201).json(contList);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// 多条件查询
 const whereUser = async (req, res) => {
     try {
         const contList = await userService.whereUser(req.query);
@@ -30,8 +41,19 @@ const getUsersByGroup = async (req, res) => {
         } else {
             const userIds = relationData.map(item => parseInt(item.id_, 10));
             const userData = await userService.fetchUsersByUserIds(userIds);
+            console.log(userIds,'userIds')
             res.status(200).json(userData); // 返回 200 状态码和用户数据
         }
+    } catch (error) {
+        res.status(500).json({ error: error.message }); // 返回 500 状态码和错误消息
+    }
+}
+
+// 用户id组 筛选 用户组：信息
+const usersByUserIds = async (req, res) => {
+    try {
+        const data = await userService.fetchUsersByUserIds(req.body);
+        res.status(201).json(data); // 返回 200 状态码和用户数据
     } catch (error) {
         res.status(500).json({ error: error.message }); // 返回 500 状态码和错误消息
     }
@@ -69,8 +91,10 @@ const updateUserController = async (req, res) => {
 
 module.exports = {
     inquireList,
+    whereUserId,
     whereUser,
     getUsersByGroup,
+    usersByUserIds,
     addUserController,
     deleteUserController,
     updateUserController
