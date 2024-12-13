@@ -1,5 +1,5 @@
 # Ignore node_modules folder
-node_modules/
+node_modules
 
 # 本地配置
 package-lock.json
