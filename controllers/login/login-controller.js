@@ -5,7 +5,7 @@ const service = require('../../services/system/sys-router-service');
 const { createToken } = require('../../middlewares/jwt'); // 引入 jwt.js 文件中的 createToken 方法
 
 // 登入
-const loginController = async (req, res) => {
+const loginController = async (req, res) => { 
     try {
         // 校验密码，并返回用户信息
         const userInfo = await server.loginUser(req.body);
@@ -21,6 +21,9 @@ const loginController = async (req, res) => {
             return res.status(404).json({ message: 'Role information not found for this user' });
         }
 
+        // 提取 userInfo 中的 dataValues 并添加 role_id_
+        const userInfoWithRole = { ...userInfo.dataValues, role_id_: relationData.role_id_ };
+
         // 通过角色对象，返回路由id
         const routerIDs = await roleService.findRouterTreeByRoleIds(relationData.role_id_);
         if (!routerIDs || routerIDs.length === 0) {
@@ -35,9 +38,9 @@ const loginController = async (req, res) => {
 
         // 生成 JWT token
         const data = {
-            userInfo,
+            userInfo: userInfoWithRole,
             userRouter: routerData,
-            token: createToken({ userInfo })
+            token: createToken({ userInfo: userInfoWithRole })
         } 
         return res.status(200).json({ data });
         
@@ -46,6 +49,8 @@ const loginController = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 };
+
+
 
 
 // 修改密码

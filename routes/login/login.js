@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const loginController = require('../../controllers/login.controller'); //控制器 - 执行sql
+// const loginController = require('../../controllers/login.controller'); //控制器 - 执行sql
 const controller = require('../../controllers/login/login-controller'); //控制器 - 执行sql
 
 
