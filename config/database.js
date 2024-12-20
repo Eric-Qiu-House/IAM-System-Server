@@ -1,6 +1,5 @@
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('upro_system_mysql', 'Eric', 'qzy8836610.', {
-    host: '127.0.0.1',
     port: 3306,
     dialect: 'mysql',
     pool: {

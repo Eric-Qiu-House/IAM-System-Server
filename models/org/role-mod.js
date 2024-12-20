@@ -1,7 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../config/database'); // 引入 Sequelize 实例
-const { v4: uuidv4 } = require('uuid'); // 引入 uuid 库
-
 class Role extends Model { }
 
 Role.init({ //用于初始化模型的属性和选项。

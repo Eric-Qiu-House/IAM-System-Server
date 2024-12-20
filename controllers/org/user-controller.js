@@ -35,13 +35,15 @@ const whereUser = async (req, res) => {
 const getUsersByGroup = async (req, res) => {
     try {
         const relationData = await relationService.findUsersByGroup(req.body);
-        // 处理没有数据的情况
+        // 处理没有数据的情况 
+        console.log(relationData, 'relationData');
         if (relationData.length === 0) {
             res.status(204).end(); // 返回 204 状态码并结束响应
         } else {
-            const userIds = relationData.map(item => parseInt(item.id_, 10));
+            // 不再使用 parseInt，而是直接使用 UUID 字符串
+            const userIds = relationData.map(item => item.id_);
             const userData = await userService.fetchUsersByUserIds(userIds);
-            console.log(userIds,'userIds')
+            console.log(userIds, 'userIds');
             res.status(200).json(userData); // 返回 200 状态码和用户数据
         }
     } catch (error) {
