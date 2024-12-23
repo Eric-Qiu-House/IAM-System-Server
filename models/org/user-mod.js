@@ -57,6 +57,9 @@ User.init({
   weixin_: {
     type: DataTypes.STRING,
   },
+  user_type_: {
+    type: DataTypes.STRING,
+  },
   status_: {
     type: DataTypes.INTEGER,
   },
