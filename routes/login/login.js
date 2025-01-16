@@ -6,6 +6,7 @@ const controller = require('../../controllers/login/login-controller'); //控制
 
 router.post('/loginUser',controller.loginController)
 router.post('/changePassword',controller.changePasswordController)
+router.post('/adminChangePassword',controller.adminChangePasswordController)
 
 // router
 //     .route('/log')
