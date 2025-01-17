@@ -1,6 +1,6 @@
 const versionsModel = require('../services/sys-versions-service');
 
-// 插入角色
+// 插入
 const createController = async (req,res) => {
     try {
         const data = await versionsModel.createService(req.body);
@@ -9,7 +9,7 @@ const createController = async (req,res) => {
         res.status(500).json({ error: error.message });
     }
 }
-// 更新角色
+// 更新
 const updateController = async (req,res) => {
     try {
         const data = await versionsModel.updateService(req.body);
@@ -18,7 +18,7 @@ const updateController = async (req,res) => {
         res.status(500).json({ error: error.message });
     }
 }
-// 查询 全部
+// 查询 
 const readController = async  (req,res) => {
     try {
         const contList = await versionsModel.readService();

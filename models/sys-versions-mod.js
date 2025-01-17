@@ -9,7 +9,7 @@ const Model = sequelize.define('versionModel', {
     },
     version_number_: {
         type: DataTypes.STRING,
-        unique: true,  // 保证 version_number_ 唯一
+        // unique: true,  // 保证 version_number_ 唯一
     },
     version_information_: {
         type: DataTypes.STRING,

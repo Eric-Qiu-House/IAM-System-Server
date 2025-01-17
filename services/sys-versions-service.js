@@ -15,25 +15,28 @@ async function createService(info) {
 
 // 更新
 async function updateService(info) {
-  console.log(info, 'id_');
+  const { id_, ...fieldsToUpdate } = info;
+
+  if (!id_) {
+    throw new Error('缺少必要的标识字段: id_');
+  }
+
+  if (Object.keys(fieldsToUpdate).length === 0) {
+    throw new Error('更新的字段为空');
+  }
+
   try {
-    const { id_, ...fieldsToUpdate } = info;
-    const result = await Model.update(
-      fieldsToUpdate,
-      { where: { id_: id_ } }
-    );
-
+    const result = await Model.update(fieldsToUpdate, { where: { id_: 10 } });
     if (result[0] === 0) {
-      throw new Error('记录未找到');
+      throw new Error('记录未找到或未更新任何字段');
     }
-
-    console.log('更新成功');
     return result;
   } catch (error) {
-    console.error('更新出错:', error);
+    console.error('更新出错:', error.message);
     throw error;
   }
 }
+
 
 async function readService() {
   try {

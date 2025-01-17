@@ -1,41 +1,26 @@
+require('./config/loadEnv'); // 确保环境变量在所有模块之前加载
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-// const uuidUtils = require('./utils/uuid');
-const Server = require('./routes');
 const cors = require('cors');
 const responseInterceptor = require('./middlewares/responseInterceptor');
+const Server = require('./routes');
 
 const app = express();
-const dotenv = require('dotenv');
 
-// 加载开发或生产环境的配置文件
-const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
-dotenv.config({ path: path.resolve(process.cwd(), envFile) });
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs'); // 如果需要渲染视图，指定视图引擎
-
-// 应用中间件
 app.use(cors());
 app.use(logger('dev'));
-app.use(express.json()); // 解析 JSON 请求体
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(responseInterceptor); // 响应拦截中间件
-// app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(responseInterceptor);
 app.use('/iamServer', Server);
 
-// 捕获 404 错误
 app.use((req, res, next) => {
   next(createError(404));
 });
 
-// 全局错误处理中间件
 app.use((err, req, res, next) => {
   console.error(err.stack);
   if (process.env.NODE_ENV === 'development') {
@@ -44,11 +29,11 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Something went wrong!' });
   }
 });
+
 console.log('Current Environment:', process.env.NODE_ENV);
 console.log('Database Host:', process.env.DB_HOST);
 
-// 配置服务端口监听
 const PORT = process.env.PORT || 3002;
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log(`服务启动,端口号 ${PORT}`);
 });
