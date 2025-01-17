@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
-// const path = require('path');
+const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 // const uuidUtils = require('./utils/uuid');
@@ -9,6 +9,11 @@ const cors = require('cors');
 const responseInterceptor = require('./middlewares/responseInterceptor');
 
 const app = express();
+const dotenv = require('dotenv');
+
+// 加载开发或生产环境的配置文件
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +44,8 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Something went wrong!' });
   }
 });
+console.log('Current Environment:', process.env.NODE_ENV);
+console.log('Database Host:', process.env.DB_HOST);
 
 // 配置服务端口监听
 const PORT = process.env.PORT || 3002;

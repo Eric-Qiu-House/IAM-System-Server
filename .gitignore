@@ -3,3 +3,4 @@ node_modules
 
 # 本地配置
 package-lock.json
+.env.development
