@@ -63,6 +63,9 @@ User.init({
   status_: {
     type: DataTypes.INTEGER,
   },
+  group_name_: {
+    type: DataTypes.STRING,
+  },
   create_time_: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW, // 自动设置创建时间

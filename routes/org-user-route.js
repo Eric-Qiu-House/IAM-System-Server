@@ -10,6 +10,7 @@ router.post('/usersByUserIds',userController.readByIdsController)
 router.post('/getUsersByGroup',userController.readByGroupIdsController)
 router.post('/whereUserId',userController.readByUserIdsController)
 router.post('/deleteUser',userController.deleteUserController)
+router.post('/readDimRouter',userController.readDimController)
 
 // router.post('/whereUser',userController.whereUser)
 

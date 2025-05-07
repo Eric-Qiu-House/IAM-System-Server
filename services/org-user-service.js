@@ -73,6 +73,38 @@ async function readByIdsService(ids) {
   }
 }
 
+// 条件查询 - 模糊查询
+async function readDimService(req) {
+  try {
+    // 构建模糊查询条件：任意字段包含搜索值之一
+  const searchValue = req.userText.trim(); // 去除前后空格
+  const whereCondition = {
+      [Op.or]: [
+        { mobile_: { [Op.like]: `%${searchValue}%` } },
+        { email_: { [Op.like]: `%${searchValue}%` } },
+        { account_: { [Op.like]: `%${searchValue}%` } },
+        { fullname_: { [Op.like]: `%${searchValue}%` } },
+        { id_: { [Op.like]: `%${searchValue}%` } }
+      ]
+    };
+
+    const users = await Model.findAll({
+      where: whereCondition,
+    });
+
+    if (users.length > 0) {
+      console.log('Found users:', users);
+      return users;
+    } else {
+      console.log('No users found');
+      return [];
+    }
+  } catch (error) {
+    console.error('Error finding users:', error);
+    throw error;
+  }
+}
+
 
 // 条件查询 - 返回唯一
 async function readByIdToUserService(i) {
@@ -172,5 +204,6 @@ module.exports = {
   readByIdsService,
   readByUserIdsService,
   deleteService,
+  readDimService
   // whereUser,
 }

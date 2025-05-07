@@ -5,12 +5,13 @@ const relationService = require('../services/org-relation-service');
 const createController = async (req, res) => {
     try {
         const userData = await userService.createService(req.body);
-        
+        console.log(userData, 'userData');
         if (userData) {
             const relationData = {
                 id_: userData.id_,
                 groupId: req.body.group_id_,
-                roleId: req.body.role_id_
+                roleId: req.body.role_id_,
+                group_name_: req.body.group_name_,
             };
 
             const updatedRelation = await relationService.updateService(relationData);
@@ -105,6 +106,15 @@ const deleteUserController = async (req, res) => {
     }
 }
 
+const readDimController = async (req, res) => {
+    try {
+        const data = await userService.readDimService(req.body);
+        res.status(201).json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 
 module.exports = {
     createController,
@@ -114,7 +124,7 @@ module.exports = {
     readByGroupIdsController,
     readByUserIdsController,
     deleteUserController,
-
+    readDimController,
     // whereUserId,
     // // whereUser,
     // getUsersByGroup,
