@@ -4,7 +4,6 @@ const Model = require('../models/sys-versions-mod');
 // 插入
 async function createService(info) {
   try {
-    console.log(info,'sssssssssssss')
     const data = await Model.create(info);
     return data;
   } catch (error) {
@@ -62,12 +61,6 @@ async function readLatestService() {
   }
 };
 
-// 调用示例
-// getLatestVersion().then(version => {
-//   console.log('Latest version:', version);
-// });
-
-
 // 删除
 async function deleteService(info) {
   try {
@@ -79,8 +72,6 @@ async function deleteService(info) {
     if (result[0] === 0) {
       throw new Error('记录未找到');
     }
-
-    console.log('删除时间更新成功');
     return result;
   } catch (error) {
     console.error('更新删除时间时出错:', error);

@@ -5,7 +5,6 @@ const relationService = require('../services/org-relation-service');
 const createController = async (req, res) => {
     try {
         const userData = await userService.createService(req.body);
-        console.log(userData, 'userData');
         if (userData) {
             const relationData = {
                 id_: userData.id_,
@@ -55,29 +54,17 @@ const readByIdsController = async (req, res) => {
     }
 }
 
-// 多条件查询
-// const whereUser = async (req, res) => {
-//     try {
-//         const contList = await userService.whereUser(req.query);
-//         res.status(201).json(contList);
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// }
-
 // 部门id 筛选 用户
 const readByGroupIdsController = async (req, res) => {
     try {
         const relationData = await relationService.readByGroupIdsService(req.body);
         // 处理没有数据的情况 
-        console.log(relationData, 'relationData');
         if (relationData.length === 0) {
             res.status(204).end(); // 返回 204 状态码并结束响应
         } else {
             // 不再使用 parseInt，而是直接使用 UUID 字符串
             const userIds = relationData.map(item => item.id_);
             const userData = await userService.readByUserIdsService(userIds);
-            console.log(userIds, 'userIds');
             res.status(200).json(userData); // 返回 200 状态码和用户数据
         }
     } catch (error) {
@@ -125,9 +112,4 @@ module.exports = {
     readByUserIdsController,
     deleteUserController,
     readDimController,
-    // whereUserId,
-    // // whereUser,
-    // getUsersByGroup,
-    // usersByUserIds,
-
 }

@@ -25,7 +25,6 @@ const buildTree = (data, parentId = null, userRole) => {
 
 // 添加
 async function createService(info) {
-  console.log(info, 'infoinfoinfoinfo')
   try {
     const data = await Model.create(info);
     return data;
@@ -83,7 +82,6 @@ async function readByRouteIdsService(routerIds) {
       const routesTree = buildTree(routes);
       return routesTree;
     } else {
-      console.log('No records found for the given router IDs');
       return [];
     }
   } catch (error) {
