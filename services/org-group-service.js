@@ -30,7 +30,6 @@ const buildTree = (list, parentId = null) => {
     
   // 更新
   async function updateService(info) {
-    console.log(info, 'id_');
     try {
       const { id_, ...fieldsToUpdate } = info;
       const result = await Model.update(
@@ -42,7 +41,6 @@ const buildTree = (list, parentId = null) => {
         throw new Error('记录未找到');
       }
   
-      console.log('更新成功');
       return result;
     } catch (error) {
       console.error('更新出错:', error);
@@ -50,6 +48,7 @@ const buildTree = (list, parentId = null) => {
     }
   }
   
+// 查找全部
 async function readService() {
     try {
       const lists = await Model.findAll({
@@ -61,7 +60,6 @@ async function readService() {
         const data = buildTree(lists);
         return data;
       } else {
-        console.log('No found');
         return [];
       }
     } catch (error) {
@@ -82,8 +80,6 @@ async function readService() {
       if (result[0] === 0) {
         throw new Error('记录未找到');
       }
-  
-      console.log('删除时间更新成功');
       return result;
     } catch (error) {
       console.error('更新删除时间时出错:', error);

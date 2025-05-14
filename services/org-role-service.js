@@ -14,7 +14,6 @@ async function createService(info) {
 
 // 更新角色
 async function updateService(info) {
-  console.log(info, 'id_');
   try {
     const { id_, ...fieldsToUpdate } = info;
     const result = await Model.update(
@@ -26,7 +25,6 @@ async function updateService(info) {
       throw new Error('记录未找到');
     }
 
-    console.log('更新成功');
     return result;
   } catch (error) {
     console.error('更新时出错:', error);
@@ -41,7 +39,6 @@ async function readService() {
     if (lists.length > 0) {
       return lists;
     } else {
-      console.log('No records found');
       return [];
     }
   } catch (error) {
@@ -63,7 +60,6 @@ async function readByIdsService(roleIds) {
     if (routerTrees.length > 0) {
       return routerTrees;
     } else {
-      console.log('No records found for the given role IDs');
       return [];
     }
   } catch (error) {
@@ -75,7 +71,6 @@ async function readByIdsService(roleIds) {
 
 // 删除
 async function deleteService(info) {
-  console.log(info, 'id_');
   try {
     const result = await Model.update(
       { delete_time_: new Date() },
@@ -85,8 +80,6 @@ async function deleteService(info) {
     if (result[0] === 0) {
       throw new Error('记录未找到');
     }
-
-    console.log('删除时间更新成功');
     return result;
   } catch (error) {
     console.error('更新删除时间时出错:', error);

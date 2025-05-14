@@ -13,7 +13,6 @@ async function createService(info) {
 }
 // 更新
 async function updateService(info) {
-  console.log(info, 'id_');
   try {
     const { id_, ...fieldsToUpdate } = info;
     const result = await Model.update(
@@ -24,8 +23,6 @@ async function updateService(info) {
     if (result[0] === 0) {
       throw new Error('记录未找到');
     }
-
-    console.log('更新成功');
     return result;
   } catch (error) {
     console.error('更新时出错:', error);
@@ -40,7 +37,6 @@ async function readService() {
     if (lists.length > 0) {
       return lists;
     } else {
-      console.log('No users found');
       return [];
     }
   } catch (error) {
@@ -61,10 +57,8 @@ async function readByIdsService(ids) {
     });
 
     if (users.length > 0) {
-      console.log('Found users:', users);
       return users;
     } else {
-      console.log('No users found');
       return [];
     }
   } catch (error) {
@@ -93,10 +87,8 @@ async function readDimService(req) {
     });
 
     if (users.length > 0) {
-      console.log('Found users:', users);
       return users;
     } else {
-      console.log('No users found');
       return [];
     }
   } catch (error) {
@@ -108,13 +100,11 @@ async function readDimService(req) {
 
 // 条件查询 - 返回唯一
 async function readByIdToUserService(i) {
-  console.log(i,'iiii')
   try {
     const user = await Model.findOne({ where: { id_: i.id_ } })
     if (user) {
       return user;
     } else {
-      console.log('User not found');
       return null;
     }
   } catch(error) {
@@ -137,7 +127,6 @@ async function whereUser(i) {
     if (user) {
       return user;
     } else {
-      console.log('User not found');
       return null;
     }
   } catch(error)  {
@@ -148,8 +137,6 @@ async function whereUser(i) {
 
 // [id...] 
 async function readByUserIdsService(userIds) {
-  console.log(userIds, 'userids');
-
   // 确保 userIds 是一个数组且不为空
   if (!Array.isArray(userIds) || userIds.length === 0) {
     throw new Error('Invalid user IDs');
@@ -164,8 +151,6 @@ async function readByUserIdsService(userIds) {
         }
       }
     });
-    console.log(lists, 'listslistslists');
-
     // 提取纯数据
     return lists.map(record => record.get({ plain: true }));
   } catch (error) {
@@ -186,8 +171,6 @@ async function deleteService(info) {
     if (result[0] === 0) {
       throw new Error('记录未找到');
     }
-
-    console.log('删除时间更新成功');
     return result;
   } catch (error) {
     console.error('更新删除时间时出错:', error);

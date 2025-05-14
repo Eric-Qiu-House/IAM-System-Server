@@ -5,8 +5,6 @@ function responseInterceptor(req, res, next) {
 
     res.json = (data) => {
       // 在这里进行响应数据的修改或日志记录
-      console.log('Response data:', data);
-  
       // 调用原始的 res.json 方法
       return originalJson(data);
     };

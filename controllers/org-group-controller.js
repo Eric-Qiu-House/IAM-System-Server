@@ -1,9 +1,9 @@
-const groupService = require('../services/org-group-service');
+const Service = require('../services/org-group-service');
 
 // 插入
 const createController = async (req,res) => {
     try {
-        const data = await groupService.createService(req.body);
+        const data = await Service.createService(req.body);
         res.status(201).json(data);
     } catch (error) {  
         res.status(500).json({ error: error.message });
@@ -12,7 +12,7 @@ const createController = async (req,res) => {
 // 更新
 const updateController = async (req,res) => {
     try {
-        const data = await groupService.updateService(req.body);
+        const data = await Service.updateService(req.body);
         res.status(201).json(data);
     } catch (error) {  
         res.status(500).json({ error: error.message });
@@ -21,7 +21,7 @@ const updateController = async (req,res) => {
 // 查询
 const readController = async  (req,res) => {
     try {
-        const contList = await groupService.readService();
+        const contList = await Service.readService();
         res.status(201).json(contList);
     } catch (error) {  
         res.status(500).json({ error: error.message });
@@ -30,7 +30,7 @@ const readController = async  (req,res) => {
 // 删除
 const deleteController = async (req,res) => {
     try {
-        const data = await groupService.deleteService(req.body);
+        const data = await Service.deleteService(req.body);
         res.status(201).json(data);
     } catch (error) {  
         res.status(500).json({ error: error.message });

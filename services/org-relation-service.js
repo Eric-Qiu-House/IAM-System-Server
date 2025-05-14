@@ -25,7 +25,6 @@ async function readService() {
     if (data.length > 0) {
       return data;
     } else {
-      console.log('No users found');
       return [];
     }
   } catch (error) {

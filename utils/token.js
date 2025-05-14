@@ -21,7 +21,6 @@ function verifyToken(token) {
 const acquireToken = (user,res) => {
     if (user) {
         const token = createToken({ id: user.id_, userName: user.fullname_, userId: user.account_, password: user.password_});
-        console.log(token,"token")
         res.json({ token });
       } else {
         res.status(401).send('Invalid credentials');

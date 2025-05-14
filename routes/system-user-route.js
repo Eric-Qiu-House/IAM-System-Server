@@ -12,7 +12,6 @@ router
 // .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
 // .get((req, res) => {
 //       // 模拟的用户数据
-//       console.log('111111111') 
 //       const mockUsers = [
 //         {
 //           id: 1,
